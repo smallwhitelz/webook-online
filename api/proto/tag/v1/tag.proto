@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package tag.v1;
+option go_package = "tag/v1;tagv1";
+
+service TagService {
+  rpc CreateTag(CreateTagRequest)returns(CreateTagResponse);
+
+  // 查找一个用户创建的标签，我们可以预期一个用户不会有太多标签，所以没必要有分页
+  rpc GetTags(GetTagsRequest) returns(GetTagsResponse);
+
+  // 覆盖式的api
+  // 也就是直接用新的tag全部覆盖已有的tag
+  rpc AttachTags(AttachTagsRequest) returns(AttachTagsResponse);
+
+  rpc GetBizTags(GetBizTagsRequest) returns(GetBizTagsResponse);
+}
+
+message  CreateTagRequest {
+  int64 uid = 1;
+  string name = 2;
+}
+
+message CreateTagResponse {
+  Tag tag = 1;
+}
+
+message Tag {
+  int64 id = 1;
+  string name = 2;
+  int64 uid = 3;
+}
+
+message GetTagsRequest {
+  int64 uid = 1;
+}
+
+message GetTagsResponse {
+  repeated Tag tags = 1;
+}
+
+message AttachTagsRequest {
+  repeated int64 tids = 1;
+  int64 uid = 2;
+  string biz = 3;
+  int64 biz_id = 4;
+}
+
+message AttachTagsResponse {
+
+}
+
+message GetBizTagsRequest {
+  int64 uid = 1;
+  string biz = 2;
+  int64 biz_id = 3;
+}
+
+message GetBizTagsResponse {
+  repeated Tag tags = 1;
+}

@@ -1,0 +1,27 @@
+test:
+  key: 1234
+
+redis:
+  addr: "43.154.97.245:6379"
+
+db:
+  dsn: "root:root@tcp(43.154.97.245:13316)/webook"
+
+kafka:
+  addr:
+    - "43.154.97.245:9094"
+
+# grpc客户端调用grpc服务
+grpc:
+  client:
+    intr:
+      addr: "etcd:///service/interactive"
+    reward:
+      addr: "etcd:///service/reward"
+    comment:
+      addr: "etcd:///service/comment"
+
+etcd:
+  etcdAddr: "43.154.97.245:12379"
+  username: "root"
+  password: "1234"

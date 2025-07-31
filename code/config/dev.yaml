@@ -1,0 +1,23 @@
+test:
+  key: "code"
+
+redis:
+  addr: "43.154.97.245:6379"
+
+kafka:
+  addr:
+    - "43.154.97.245:9094"
+
+# grpc客户端调用grpc服务
+grpc:
+  server:
+    etcdAddr: "43.154.97.245:12379"
+    port: 8101
+    name: "code"
+  client:
+    sms:
+      target: "etcd:///service/sms"
+etcd:
+  etcdAddr: "43.154.97.245:12379"
+  username: "root"
+  password: "1234"

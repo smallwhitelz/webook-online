@@ -1,0 +1,19 @@
+test:
+  key: "oauth2"
+
+# grpc客户端调用grpc服务
+grpc:
+  server:
+    etcdAddr: "43.154.97.245:12379"
+    port: 8102
+    name: "oauth2"
+
+weChatConf:
+  appId: "xxxxxxxxx"
+  appSecret: "oooooooo"
+
+prometheus:
+  nameSpace: "grpc_webook"
+  subsystem: ""
+  instanceId: ""
+  name: "oauth2"

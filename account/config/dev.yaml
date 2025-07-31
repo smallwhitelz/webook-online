@@ -1,0 +1,18 @@
+test:
+  key: "account"
+
+redis:
+  addr: "43.154.97.245:6379"
+
+db:
+  dsn: "root:root@tcp(43.154.97.245:13316)/webook_account"
+
+kafka:
+  addr:
+    - "43.154.97.245:9094"
+
+grpc:
+  server:
+    etcdAddr: "43.154.97.245:12379"
+    port: 8091
+    name: "account"

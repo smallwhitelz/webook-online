@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package sqljob.v1;
+option go_package = "sqljob/v1;sqljobv1";
+
+import "google/protobuf/timestamp.proto";
+
+message CronJob {
+  int64 id = 1;
+  string name = 2;
+  // Cron 表达式
+  string expression = 3;
+  string executor = 4;
+  string cfg = 5;
+  google.protobuf.Timestamp next_time = 6;
+}
+
+service MysqlCronJobService {
+    rpc Preempt(PreemptRequest) returns (PreemptResponse);
+    rpc ResetNextTime(ResetNextTimeRequest) returns (ResetNextTimeResponse);
+    rpc AddJob(AddJobRequest) returns (AddJobResponse);
+}
+
+message PreemptRequest {
+
+}
+
+message PreemptResponse {
+  CronJob job = 1;
+}
+
+message ResetNextTimeRequest{
+  CronJob job = 1;
+}
+
+message ResetNextTimeResponse {}
+
+message AddJobRequest{
+  CronJob job = 1;
+}
+
+message AddJobResponse{
+
+}

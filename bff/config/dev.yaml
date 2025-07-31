@@ -1,0 +1,32 @@
+test:
+  key: "buff"
+
+http:
+  addr: ":8080"
+
+redis:
+  addr: "43.154.97.245:6379"
+
+etcd:
+  etcdAddr: "43.154.97.245:12379"
+  username: "root"
+  password: "1234"
+grpc:
+  #  使用 etcd 来作为服务发现
+  #  配置客户端的时候一定要小心端口，要填对
+  #  当然对应的服务也要启动起来
+  client:
+    user:
+      target: "etcd:///service/user"
+    code:
+      target: "etcd:///service/code"
+    oauth2:
+      target: "etcd:///service/oauth2"
+    article:
+      target: "etcd:///service/article"
+    comment:
+      target: "etcd:///service/comment"
+    intr:
+      target: "etcd:///service/interactive"
+    reward:
+      target: "etcd:///service/reward"

@@ -1,0 +1,11 @@
+test:
+  key: "mysql_job"
+
+db:
+  dsn: "root:root@tcp(43.154.97.245:13316)/webook_job"
+
+grpc:
+  server:
+    etcdAddr: "43.154.97.245:12379"
+    port: 8107
+    name: "cronjob"

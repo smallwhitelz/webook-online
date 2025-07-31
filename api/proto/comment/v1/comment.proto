@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package comment.v1;
+option go_package = "comment/v1;commentv1";
+
+import "google/protobuf/timestamp.proto";
+
+service CommentService {
+  // 创建评论
+  rpc CreateComment(CreateCommentRequest) returns (CreateCommentResponse);
+  rpc DeleteComment(DeleteCommentRequest) returns (DeleteCommentResponse);
+  rpc GetCommentList(GetCommentListRequest) returns(GetCommentListResponse);
+  rpc GetMoreReplies(GetMoreRepliesRequest) returns(GetMoreRepliesResponse);
+}
+
+message GetMoreRepliesRequest{
+  // root_id
+  int64 rid = 1;
+  // 升序查询，所以也就是id越大的越靠后
+  int64 max_id = 2;
+  int64 limit = 3;
+}
+
+message GetMoreRepliesResponse {
+  repeated Comment replies = 1;
+}
+
+message GetCommentListRequest {
+  // 按照资源来排序
+  string biz = 1;
+  int64 biz_id = 2;
+  // 分页接口，按照最新评论排序（id 降序/ctime 降序）
+  // 这种offset的话就会导致并发问题，也就是可能取出两个一模一样的评论
+  // 上一批次最小 ID，因为这里我们排序取得是id降序，所以最新的评论也就是id最大
+  int64 minId = 3;
+  int64 limit = 4;
+}
+
+message GetCommentListResponse {
+  repeated Comment comments= 1;
+}
+
+message DeleteCommentRequest {
+  int64 id  = 1;
+}
+
+message DeleteCommentResponse {
+
+}
+
+message CreateCommentRequest {
+  Comment comment = 1;
+}
+
+message CreateCommentResponse {
+
+}
+
+
+message Comment {
+  int64 id = 1;
+  int64 uid = 2;
+  string biz = 3;
+  int64 biz_id = 4;
+  string content = 5;
+  Comment root_comment = 6;
+  Comment parent_comment = 7;
+  // 正常来说你在时间的传递上如果不想用int64之类的
+  // 就可以考虑用这个Timestamp
+  google.protobuf.Timestamp ctime = 9;
+  google.protobuf.Timestamp utime = 10;
+}

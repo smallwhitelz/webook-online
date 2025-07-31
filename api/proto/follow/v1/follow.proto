@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package follow.v1;
+option go_package = "follow/v1;followv1";
+
+service FollowService {
+  // 关注
+  rpc Follow(FollowRequest) returns (FollowResponse);
+  // 取消关注
+  rpc CancelFollow(CancelFollowRequest) returns (CancelFollowResponse);
+
+  // 改，例如说你准备支持备注、标签类的，那么就会有对应的修改功能
+
+  // 获得某个人的关注列表
+  rpc GetFollowee(GetFolloweeRequest) returns(GetFolloweeResponse);
+  // 获得某个人关注另外一个人的详细信息
+  rpc FollowInfo(FollowInfoRequest) returns(FollowInfoResponse);
+  // 获得某个人的粉丝列表
+  rpc GetFollower(GetFollowerRequest) returns(GetFollowerResponse);
+  // 获取默认的关注人数
+  rpc GetFollowStatic(GetFollowStaticRequest) returns (GetFollowStaticResponse);
+}
+
+message FollowRequest {
+  // 关注者
+  int64 follower = 1;
+  // 被关注者
+  int64 followee = 2;
+  // A 关注 B 那么A就是follower B就是followee
+}
+
+message FollowResponse {
+
+}
+
+message CancelFollowRequest {
+  // 关注者
+  int64 follower = 1;
+  // 被关注者
+  int64 followee = 2;
+}
+
+message CancelFollowResponse {
+
+}
+
+message GetFolloweeRequest {
+  // 某个人查询自己的关注列表
+  int64 follower = 1;
+  int64 offset = 2;
+  int64 limit =3;
+}
+
+message GetFolloweeResponse {
+  repeated FollowRelation follow_relations = 1;
+}
+
+message FollowRelation {
+  int64 id = 1;
+  int64 follower = 2;
+  int64 followee = 3;
+}
+
+message FollowInfoRequest {
+  // 关注者
+  int64 follower = 1;
+  // 被关注者
+  int64 followee = 2;
+}
+
+message FollowInfoResponse {
+  FollowRelation follow_relation = 1;
+}
+
+message GetFollowerRequest {
+  // 某个人查询自己的粉丝列表
+  int64 followee = 1;
+  int64 offset = 2;
+  int64 limit =3;
+}
+
+message GetFollowerResponse {
+  repeated FollowRelation follow_relation = 1;
+}
+
+message GetFollowStaticRequest {
+  int64 uid = 1;
+}
+
+message GetFollowStaticResponse {
+  FollowStatic followStatic = 1;
+}
+
+message FollowStatic {
+  // 被多少人关注
+  int64 followers =  1;
+  // 自己关注了多少人
+  int64 followees = 2;
+}

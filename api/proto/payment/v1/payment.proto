@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package pmt.v1;
+option go_package = "pmt/v1;pmtv1";
+
+
+
+service WechatPaymentService{
+  rpc NativePrePay(PrepayRequest) returns (PrepayResponse);
+  rpc GetPayment(GetPaymentRequest) returns (GetPaymentResponse);
+}
+
+message GetPaymentRequest {
+  string biz_trade_no = 1;
+}
+
+message GetPaymentResponse {
+  // 有需要字段
+  PaymentStatus status = 1;
+}
+
+enum PaymentStatus {
+    PaymentStatusUnknown = 0;
+    PaymentStatusInit = 1;
+    PaymentStatusSuccess = 2;
+    PaymentStatusFailed = 3;
+    PaymentStatusRefund = 4;
+}
+
+message PrepayResponse{
+  string code_url = 1;
+}
+
+message PrepayRequest{
+  Amount amt = 1;
+  string biz_trade_no = 2;
+  string description = 3;
+}
+
+message Amount{
+  int64 total = 1;
+  string currency = 2;
+}

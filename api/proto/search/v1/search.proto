@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+// 引入sync.proto的User和Article的定义
+import "search/v1/sync.proto";
+
+package search.v1;
+option go_package = "search/v1;searchv1";
+
+service SearchService {
+  // 这个是最为模糊的搜索接口
+  rpc Search(SearchRequest) returns(SearchResponse);
+
+  // 你可以考虑业务专属接口
+  // rpc SearchUser()
+}
+
+message SearchRequest {
+  string expression = 1;
+  int64  uid = 2;
+}
+
+message SearchResponse {
+  UserResult user = 1;
+  ArticleResult article = 2;
+}
+
+message UserResult {
+  repeated User users = 1;
+}
+
+message ArticleResult {
+  repeated Article articles = 1;
+}
