@@ -60,6 +60,7 @@ cd webook-online
 docker-compose up -d mysql8 redis mongo etcd kafka elasticsearch
 ```
 **PS:** 这里需要哪些依赖服务都在docker-compose.yaml文件中，这里的启动只是举例
+
 3. 运行服务
 ```bash
 # 启动单个微服务(以用户服务为例)
